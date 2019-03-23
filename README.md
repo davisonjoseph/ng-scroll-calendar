@@ -65,6 +65,8 @@ export class AppComponent {
 | -------------------------| -------------------- | -------- | --------| --------------------------------- |
 | config                   | Object               | Yes      | {show:false} | Used for Calendar visibility |  
 
+### Events
+
 | @Output()  | Type         | Event Type          | Required | Description                                                                     |
 | ---------- | ------------ | ------------------- | -------- | ------------------------------------------------------------------------------- |
 | onSelect   | EventEmitter | onSelect            | Yes      | Returns the Selected date.                                                      |
