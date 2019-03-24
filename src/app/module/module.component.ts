@@ -12,7 +12,7 @@ export class NgScrollCalendarComponent implements OnInit {
     "May", "June", "July", "August",
     "September", "October", "November", "December"];
 
-  MONTH_CLASS = ["month", "other-month"]
+  MONTH_CLASS = ["month", "month"]
   ONE_DAY = 86400000;
   ONE_WEEK = 86400000 * 7;
   DateSet = [];
@@ -28,6 +28,15 @@ export class NgScrollCalendarComponent implements OnInit {
   }
 
   onDateSelect(dObj) {
+    this.DateSet.forEach(set => {
+      set.forEach(date => {
+        if (date.class!="today" && date.class == "d-active") date.class =  date.class.replace('d-active','month');
+        if(date.class=="today") date.class =  date.class.replace('date-item','date-item month today');
+      });
+    });
+    if(dObj.class!="today"){
+      dObj.class = "d-active";
+    }
     this.onSelect.emit(dObj.value);
   }
 
@@ -107,7 +116,7 @@ export class NgScrollCalendarComponent implements OnInit {
   }
 
   renderMoreWeeks(numWeeks) {
-    if(typeof this.config.weekOffset == 'undefined') this.config.weekOffset || -2;
+    if (typeof this.config.weekOffset == 'undefined') this.config.weekOffset || -2;
     for (var i = 0; i < numWeeks; i++) {
       this.DateSet.push(this.renderFutureWeek(this.config.weekOffset));
       this.config.weekOffset++;

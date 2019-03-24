@@ -1,6 +1,6 @@
 {
   "name": "ng-scroll-calendar",
-  "version": "1.0.10",
+  "version": "1.0.14",
   "description": "Angular Scroll Calendar",
   "license": "MIT",
   "keywords": [
@@ -28,9 +28,6 @@
     "packagr": "ng-packagr -p ng-package.json"
   },
   "private": false,
-  "peerDependencies": {
-    "ngx-infinite-scroll": "7.1.0"
-  },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.7.0",
     "@angular/cli": "6.1.2",
