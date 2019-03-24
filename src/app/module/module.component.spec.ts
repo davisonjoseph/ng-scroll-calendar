@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgScrollCalendarComponent } from './ng-scroll-calendar.component';
+import { NgScrollCalendarComponent } from './module.component';
 
 describe('NgScrollCalendarComponent', () => {
   let component: NgScrollCalendarComponent;

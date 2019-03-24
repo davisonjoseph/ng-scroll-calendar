@@ -1,6 +1,23 @@
 {
   "name": "ng-scroll-calendar",
-  "version": "1.0.1",
+  "version": "1.0.10",
+  "description": "Angular Scroll Calendar",
+  "license": "MIT",
+  "keywords": [
+    "angular2",
+    "ng2",
+    "angular",
+    "calendar",
+    "scroll",
+    "lazyload",
+    "infinite",
+    "infinite-scroll"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davisonjoseph/ng-scroll-calendar.git"
+  },
+  "author": "Davison Joseph <davisonjoseph@gmail.com> (https://www.davisonjoseph.in)",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,20 +28,8 @@
     "packagr": "ng-packagr -p ng-package.json"
   },
   "private": false,
-  "dependencies": {
-    "@angular/animations": "6.1.0",
-    "@angular/common": "6.1.0",
-    "@angular/compiler": "6.1.0",
-    "@angular/core": "6.1.0",
-    "@angular/forms": "6.1.0",
-    "@angular/http": "6.1.0",
-    "@angular/platform-browser": "6.1.0",
-    "@angular/platform-browser-dynamic": "6.1.0",
-    "@angular/router": "6.1.0",
-    "core-js": "2.5.4",
-    "ngx-infinite-scroll": "7.1.0",
-    "rxjs": "6.0.0",
-    "zone.js": "0.8.26"
+  "peerDependencies": {
+    "ngx-infinite-scroll": "7.1.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.7.0",

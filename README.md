@@ -45,13 +45,17 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  config = { show: false };
+  config = {
+    show: false,
+    weekOffset: -2,
+    selectedDate: new Date(2019, 2, 30)
+  };
 
   onDateChange(date) {
     console.log(date);
   }
 
-  onFocus(){
+  onFocus() {
     this.config.show = true;
   }
 }
@@ -60,10 +64,15 @@ export class AppComponent {
 ## Supported API
 
 ### Properties
+```
+@Input()  config
 
-| @Input()                 | Type                 | Required | Default | Description                       |
+```
+| Key                      | Type                 | Required | Default | Description                       |
 | -------------------------| -------------------- | -------- | --------| --------------------------------- |
-| config                   | Object               | Yes      | {show:false} | Used for Calendar visibility |  
+| show                     | Boolean              | Yes      |  false  | Used for Calendar visibility      |  
+| selectedDate             | Date                 | Optional |  Current Date  | d-active class will be added to the selected date |  
+| weekOffset               | Number               | Optional |  -2     | Number of Weeks to be Skipped(eg. 2)/Added(eg: -2) |  
 
 ### Events
 

@@ -2,8 +2,8 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'ng-scroll-calendar',
-  templateUrl: './ng-scroll-calendar.component.html',
-  styleUrls: ['./ng-scroll-calendar.component.css']
+  templateUrl: './module.component.html',
+  styleUrls: ['./module.component.css']
 })
 export class NgScrollCalendarComponent implements OnInit {
 
@@ -18,7 +18,7 @@ export class NgScrollCalendarComponent implements OnInit {
   DateSet = [];
   @Output() onSelect = new EventEmitter();
   @Input('config') config;
-  WEEK_OFFSET = -2;
+  //WEEK_OFFSET = -2;
   NUM_WEEKS_TO_RENDER;
   constructor() { }
 
@@ -29,7 +29,6 @@ export class NgScrollCalendarComponent implements OnInit {
 
   onDateSelect(dObj) {
     this.onSelect.emit(dObj.value);
-    this.config.show = false;
   }
 
   renderFutureWeek(numWeeksAhead) {
@@ -80,6 +79,10 @@ export class NgScrollCalendarComponent implements OnInit {
     var someDayOfWeek = aDate.getDay();
     var someDate = aDate.getDate();
     var now = new Date();
+    this.config.selectedDate = this.config.selectedDate || new Date();
+    if (someMonth == this.config.selectedDate.getMonth() && someDayOfWeek == this.config.selectedDate.getDay() && someDate == this.config.selectedDate.getDate()) {
+      return "d-active";
+    }
     if (someMonth == now.getMonth() && someDayOfWeek == now.getDay() && someDate == now.getDate()) {
       return "today";
     }
@@ -104,9 +107,10 @@ export class NgScrollCalendarComponent implements OnInit {
   }
 
   renderMoreWeeks(numWeeks) {
+    if(typeof this.config.weekOffset == 'undefined') this.config.weekOffset || -2;
     for (var i = 0; i < numWeeks; i++) {
-      this.DateSet.push(this.renderFutureWeek(this.WEEK_OFFSET));
-      this.WEEK_OFFSET++;
+      this.DateSet.push(this.renderFutureWeek(this.config.weekOffset));
+      this.config.weekOffset++;
     }
   }
 

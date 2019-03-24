@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgScrollCalendarComponent } from './ng-scroll-calendar.component';
+import { NgScrollCalendarComponent } from './module.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
