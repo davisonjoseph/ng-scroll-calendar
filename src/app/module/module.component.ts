@@ -7,6 +7,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 })
 export class NgScrollCalendarComponent implements OnInit {
 
+  initialLoad: boolean = true;
   showCalendar: boolean = false;
   MONTHS = ["January", "February", "March", "April",
     "May", "June", "July", "August",
@@ -18,7 +19,6 @@ export class NgScrollCalendarComponent implements OnInit {
   DateSet = [];
   @Output() onSelect = new EventEmitter();
   @Input('config') config;
-  //WEEK_OFFSET = -2;
   NUM_WEEKS_TO_RENDER;
   constructor() { }
 
@@ -28,15 +28,19 @@ export class NgScrollCalendarComponent implements OnInit {
   }
 
   onDateSelect(dObj) {
+    if (this.config.DisablePastDays) {
+      var now = new Date();
+      if (Math.floor((dObj.value.getTime() - now.getTime()) / (1000 * 3600 * 24)) < -1) {
+        return;
+      }
+    }
+    this.initialLoad = false;
     this.DateSet.forEach(set => {
       set.forEach(date => {
-        if (date.class!="today" && date.class == "d-active") date.class =  date.class.replace('d-active','month');
-        if(date.class=="today") date.class =  date.class.replace('date-item','date-item month today');
+        date.class = "";
       });
     });
-    if(dObj.class!="today"){
-      dObj.class = "d-active";
-    }
+    dObj.class = "d-active";
     this.onSelect.emit(dObj.value);
   }
 
@@ -77,25 +81,34 @@ export class NgScrollCalendarComponent implements OnInit {
           temp.push({ date: '' });
         }
       }
-      var css_class = this.determineStyle(date)
-      temp.push({ class: css_class, date: this.dateFormatter(date).date, value: date });
+      //var css_class = this.determineStyle(date)
+      temp.push({ class: '', date: this.dateFormatter(date).date, value: date });
     }
     return temp;
   }
 
   determineStyle(aDate) {
-    var someMonth = aDate.getMonth();
-    var someDayOfWeek = aDate.getDay();
-    var someDate = aDate.getDate();
-    var now = new Date();
-    this.config.selectedDate = this.config.selectedDate || new Date();
-    if (someMonth == this.config.selectedDate.getMonth() && someDayOfWeek == this.config.selectedDate.getDay() && someDate == this.config.selectedDate.getDate()) {
-      return "d-active";
+    if (aDate) {
+      var someMonth = aDate.getMonth();
+      var someDayOfWeek = aDate.getDay();
+      var someDate = aDate.getDate();
+      var now = new Date();
+      this.config.selectedDate = this.config.selectedDate || new Date();
+      if (this.initialLoad && someMonth == this.config.selectedDate.getMonth() && someDayOfWeek == this.config.selectedDate.getDay() && someDate == this.config.selectedDate.getDate()) {
+        return "d-active";
+      }
+      if (this.config.DisablePastDays) {
+        if (Math.floor((aDate.getTime() - now.getTime()) / (1000 * 3600 * 24)) < -1) {
+          return 'disabled';
+        }
+      }
+      if (someMonth == now.getMonth() && someDayOfWeek == now.getDay() && someDate == now.getDate()) {
+        return "today";
+      }
+      return this.MONTH_CLASS[aDate.getMonth() % 2];
+    } else {
+      return '';
     }
-    if (someMonth == now.getMonth() && someDayOfWeek == now.getDay() && someDate == now.getDate()) {
-      return "today";
-    }
-    return this.MONTH_CLASS[aDate.getMonth() % 2];
   }
 
   dateFormatter(date) {

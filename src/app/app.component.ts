@@ -9,14 +9,15 @@ export class AppComponent {
   config = {
     show: false,
     weekOffset: -2,
-    selectedDate: new Date(2019, 2, 30)
+    selectedDate: new Date(),
+    DisablePastDays:true
   };
 
   onDateChange(date) {
     console.log(date);
   }
 
-  onFocus() {
+  showCalendar() {
     this.config.show = true;
   }
 }

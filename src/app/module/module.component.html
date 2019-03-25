@@ -17,7 +17,7 @@
       <ng-container *ngFor="let datesRow of DateSet">
         <ng-container *ngFor="let dateObj of datesRow">
           <div class="month-item" *ngIf="dateObj.month">{{dateObj.month}} {{dateObj.year}}</div>
-          <div class="date-item {{dateObj.class}}" (click)="onDateSelect(dateObj)" *ngIf="!dateObj.month">{{dateObj.date}}</div>
+          <div class="date-item {{dateObj.class}}" [ngClass]="determineStyle(dateObj.value)" (click)="onDateSelect(dateObj)" *ngIf="!dateObj.month">{{dateObj.date}}</div>
         </ng-container>
       </ng-container>
     </div>

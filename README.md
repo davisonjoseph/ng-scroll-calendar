@@ -1,6 +1,6 @@
 # NgScrollCalendar
 
-NgScrollCalendar is a Angular Module that supports fullscreen and Lazyload on Pagescroll (Recommanded for Mobile screens)
+NgScrollCalendar is a Angular Module that supports fullscreen and Lazyload on Pagescroll (Recommended for Mobile screens)
 
 
 ## Installation
@@ -15,20 +15,22 @@ npm install ng-scroll-calendar --save
 import the NgScrollCalendarModule to your module:
 
 ```typescript
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+.
 import { NgScrollCalendarModule } from 'ng-scroll-calendar';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { AppComponent } from './app';
+.
+.
 
 @NgModule({
-  imports: [BrowserModule, NgScrollCalendarModule],
+  imports: [
+    NgScrollCalendarModule,
+    .
+    .
+    ],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
 
-platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
 Add the following changes to your Component
@@ -39,7 +41,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app',
   template: `
-    <input type="text" (focus)="onFocus()">
+    <input type="text" (focus)="showCalendar()">
     <ng-scroll-calendar [config]="config" (onSelect)="onDateChange($event)"></ng-scroll-calendar>
   `
 })
@@ -48,14 +50,15 @@ export class AppComponent {
   config = {
     show: false,
     weekOffset: -2,
-    selectedDate: new Date(2019, 2, 30)
+    selectedDate: new Date(),
+    DisablePastDays:true
   };
 
   onDateChange(date) {
     console.log(date);
   }
 
-  onFocus() {
+  showCalendar() {
     this.config.show = true;
   }
 }
@@ -73,10 +76,19 @@ export class AppComponent {
 | show                     | Boolean              | Yes      |  false  | Used for Calendar visibility      |  
 | selectedDate             | Date                 | Optional |  Current Date  | d-active class will be added to the selected date |  
 | weekOffset               | Number               | Optional |  -2     | Number of Weeks to be Skipped(eg. 2)/Added(eg: -2) |  
+| DisablePastDays          | Boolean              | Optional |  false     | Disable/Enable past Days          |
 
 ### Events
 
-| @Output()  | Type         | Event Type          | Required | Description                                                                     |
-| ---------- | ------------ | ------------------- | -------- | ------------------------------------------------------------------------------- |
-| onSelect   | EventEmitter | onSelect            | Yes      | Returns the Selected date.                                                      |
+| @Output()  | Type         | Description                                                     |
+| ---------- | ------------ | --------------------------------------------------------------- |
+| onSelect   | EventEmitter | Returns the Selected date.                                      |
 
+### Style Guide
+
+| Class Name | Description   |
+|------------|---------------|
+| .date-item | will be added to all the date tiles | 
+| .disabled  | will be added to the dates which are disabled |
+| .d-active  | will be added to the selected date   |
+| .today     | will be added when date = today      | 
